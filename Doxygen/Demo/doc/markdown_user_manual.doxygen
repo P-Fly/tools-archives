@@ -1,0 +1,125 @@
+/*! @page markdown_user_manual Markdown User Manual
+
+# This is level 1 header
+
+## This is level 2 header  {#header2}
+
+# Paragraphs
+
+Here is text for one paragraph.
+
+We continue with more text in another paragraph.
+
+# Block Quotes
+
+> This is a block quote<BR>
+> spanning multiple lines
+
+# Lists
+
+- Item 1
+
+    More text for this item.
+
+- Item 2
+
+    + nested list item.
+
+    + another nested item.
+
+- Item 3
+
+1. First item.
+
+2. Second item.
+
+- [ ] unchecked
+
+- [x] checked
+
+# Code Blocks
+
+This a normal paragraph
+
+    This is a code block
+
+We continue with a normal paragraph again.
+
+# Horizontal Rulers
+
+- - -
+
+# Emphasis
+
+This is *single asterisks*
+
+This is _single underscores_
+
+This is **double asterisks**
+
+This is __double underscores__
+
+# Strikethrough
+
+~~double tilde~~
+
+# Code Spans
+
+To assign the output of command `ls` to `var` use ``var=`ls```.
+
+To assign the text `text` to `var` use ``var=`text```.
+
+# Links
+
+## Inline Links
+
+[Doxygen](https://www.doxygen.nl/)
+
+[Link header 2](#header2)
+
+[Link header 2](@ref header2)
+
+## Reference Links
+
+[Doxygen][1]
+
+[1]: https://www.doxygen.nl/
+
+# Images
+
+## Inline picture
+
+![](./pictures/picture_1.jpeg)
+
+## Reference picture
+
+![][3]
+
+[3]: ./pictures/picture_2.jpeg
+
+# Automatic Linking
+
+<https://www.example.com>
+
+<ftp://www.example.com>
+
+<mailto:address@example.com>
+
+# Tables
+
+| Right | Center | Left |
+| ----: | :----: | :---- |
+| 10 | 10 | 10 |
+| ^ | 20 | 20 |
+|| 30 ||
+
+# Fenced Code Blocks
+
+```
+int func(int a,int b)
+{
+    return a*b;
+}
+```
+
+*/

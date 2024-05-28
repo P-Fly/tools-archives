@@ -1,0 +1,58 @@
+/*! @mainpage Welcome
+
+@author Peter.Peng <27144363@qq.com>
+
+# Preface
+
+## Feature List
+
+ - Feature 1
+
+ - Feature 2
+
+ - Feature 3
+
+## Download
+
+ - Link for official download
+
+ - Link for Build from source
+
+## Install
+
+ 1. Step 1
+
+ 2. Step 2
+
+ 3. Step 3
+
+# Documentation
+
+## Markdown User Manual
+
+For the markdown user manual, see @ref markdown_user_manual
+
+## User API
+
+For the user API, see @ref Service_API
+
+## Demos
+
+For the Demos, see @ref Demos
+
+# License
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
