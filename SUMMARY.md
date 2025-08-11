@@ -14,3 +14,6 @@
 - Uncrustify
     - [Cfg](Uncrustify/cfg/)
     - [Scripts](Uncrustify/scripts/)
+
+- Vim
+    - [Scripts](Vim/scripts/)
