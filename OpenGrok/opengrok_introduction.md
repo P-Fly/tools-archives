@@ -25,37 +25,68 @@ sudo apt install openjdk-17-jdk
  1. 下载
 
     ```
-    wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.43/bin/apache-tomcat-10.1.43.tar.gz
+    sudo wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.44/bin/apache-tomcat-10.1.44.tar.gz
     ```
 
  2. 安装
 
     ```
-    sudo mv apache-tomcat-10.1.43.tar.gz /opt/tomcat10
-    tar -xvzf apache-tomcat-10.1.43.tar.gz
+    mkdir /opt/tomcat10
+    tar -zxf apache-tomcat-10.1.44.tar.gz -C /opt/tomcat10 --strip-components=1
     ```
 
- 3. 在 ~/.profile 文件中增加环境变量和服务启动
+ 3. 修改用户和用户组
 
     ```
-    export CATALINA_HOME=/opt/tomcat10
-    if ! pgrep -f "org.apache.catalina.startup.Bootstrap" > /dev/null;
-    then
-        /opt/tomcat10/bin/startup.sh > /dev/null
-    fi
+    sudo groupadd tomcat
+    sudo useradd -s /bin/false -g tomcat -d /opt/tomcat10/ tomcat
+    sudo chown -R tomcat:tomcat /opt/tomcat10/
+    sudo usermod -aG pengfei24 tomcat
     ```
 
- 5. 部署opengrok
+ 4. 创建 systemd 服务文件
 
     ```
-    cp ~/opengrok/dist/lib/source.war /opt/tomcat10/webapps/
+    # sudo vi /etc/systemd/system/tomcat.servic
+
+    [Unit]
+    Description=Apache Tomcat Web Application Server
+    After=network.target
+
+    [Service]
+    Type=forking
+
+    Environment=CATALINA_HOME=/opt/tomcat10
+    ExecStart=/opt/tomcat10/bin/startup.sh
+    ExecStop=/opt/tomcat10/bin/shutdown.sh
+
+    User=tomcat
+    Group=tomcat
+
+    Restart=on-failure
+
+    [Install]
+    WantedBy=multi-user.target
     ```
 
- 6. 修改 /opt/tomcat10/webapps/source/WEB-INF/web.xml 中的配置
+    主要修改变量 **Environment**, **ExecStart** 和 **ExecStop**.
+
+ 5. 重新加载并启动服务
 
     ```
-    <param-name>CONFIGURATION</param-name>
-    <param-value>/home/pengfei24/opengrok/etc/configuration.xml</param-value>
+    sudo systemctl daemon-reload
+    sudo systemctl start tomcat
+    sudo systemctl enable tomcat
+    ```
+
+ 6. 检查服务状态
+
+    ```
+    # 检查服务状态
+    sudo systemctl status tomcat
+
+    # 查看日志
+    journalctl -u tomcat
     ```
 
 ### 安装 universal-ctags
@@ -96,7 +127,7 @@ sudo update-alternatives --config ctags
 
     ```
     cp ~/opengrok/dist/doc/logging.properties ~/opengrok/etc
-    将配置文件中的 java.util.logging.FileHandler.pattern 配置为目录 ~/opengrok/log
+    将配置文件中的 java.util.logging.FileHandler.pattern 配置为目录 ~/opengrok/log (需要使用绝对路径)
     ```
 
  5. 安装管理工具
@@ -116,7 +147,22 @@ sudo update-alternatives --config ctags
     ln -s ~/workspace/linux/ linux
     ```
 
- 7. 创建代码索引
+ 7. 部署
+
+    ```
+    cp ~/opengrok/dist/lib/source.war /opt/tomcat10/webapps/source.war
+    ```
+
+ 8. 修改 Web 的配置
+
+    ```
+    # vi /opt/tomcat10/webapps/source/WEB-INF/web.xml
+
+    <param-name>CONFIGURATION</param-name>
+    <param-value>/home/pengfei24/opengrok/etc/configuration.xml</param-value>
+    ```
+
+ 9. 创建代码索引
 
     ```
     java \
